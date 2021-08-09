@@ -3,6 +3,9 @@ A minimal reproducible example repository demonstrating an issue with parameters
 
 ## Reproduction
 To reproduce the problem:
+
+⚠️ Ensure that you first install dependencies using `npm i` and serve the app using `ionic serve`.
+
 1) Navigate to localhost:8100 (or the test app) in a new tab. 
     This should load tab 2.
 2) Click on "Tab 1".
