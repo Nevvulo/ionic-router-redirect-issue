@@ -33,12 +33,28 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
+/* To reproduce the problem:
+1) Navigate to localhost:8100 (or the test app) in a new tab. 
+    This should load tab 2.
+
+2) Click on "Tab 1".
+    This should take you to `/tab1/TESTING`.
+    
+3) The page should read:
+    * "Tab 1 with param: undefined" 
+    when it should actually say:
+    * "Tab 1 with param: TESTING". 
+
+    The console will also print empty objects: this is the `match.params` object
+    You should notice that reloading the page will print the correct 
+    parameter data.
+*/
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/tab1">
+          <Route path="/tab1/:id">
             <Tab1 />
           </Route>
           <Route exact path="/tab2">
@@ -47,12 +63,10 @@ const App: React.FC = () => (
           <Route path="/tab3">
             <Tab3 />
           </Route>
-          <Route exact path="/">
-            <Redirect to="/tab1" />
-          </Route>
+          <Route render={() => <Redirect to="/tab2" />} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
+          <IonTabButton tab="tab1" href="/tab1/TESTING">
             <IonIcon icon={triangle} />
             <IonLabel>Tab 1</IonLabel>
           </IonTabButton>
